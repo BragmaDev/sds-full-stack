@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "express": "*",
+    "express-session": "*",
     "mongoose": "*",
     "bcryptjs": "*",
     "cors": "*",
