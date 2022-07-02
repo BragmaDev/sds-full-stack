@@ -25,7 +25,7 @@ const app = express();
 const users = require('./routes/users');
 
 // port number
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 // CORS middleware
 app.use(cors());
@@ -49,6 +49,10 @@ app.use('/users', users);
 // index route
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 // start server
