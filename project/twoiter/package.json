@@ -8,13 +8,13 @@
     "dev": "nodemon app"
   },
   "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
     "express": "*",
     "express-session": "*",
-    "mongoose": "*",
-    "bcryptjs": "*",
-    "cors": "*",
     "jsonwebtoken": "*",
-    "body-parser": "*",
+    "mongoose": "*",
     "passport": "*",
     "passport-jwt": "*"
   },
