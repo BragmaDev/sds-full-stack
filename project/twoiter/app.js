@@ -35,11 +35,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // body parser middleware
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(expressSession({ 
     secret: config.secret,
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
  }));
 
 //passport middleware
