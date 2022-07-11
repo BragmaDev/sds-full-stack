@@ -14,6 +14,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import { PostService } from './services/post.service';
 import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
@@ -51,7 +52,7 @@ const appRoutes: Routes = [
       }
     }),
   ],
-  providers: [ValidateService, AuthService, AuthGuard, JwtHelperService, FlashMessagesService],
+  providers: [ValidateService, AuthService, PostService, AuthGuard, JwtHelperService, FlashMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

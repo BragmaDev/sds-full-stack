@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Post = require('../models/post');
 
@@ -14,6 +15,17 @@ router.post('/create', (req, res, next) => {
             res.json({success: false, msg: 'Failed to create post'});
         } else {
             res.json({success: true, msg: 'Post created'});
+        }
+    })
+});
+
+// get posts
+router.get('/get', (req, res, next) => {
+    Post.getAllPosts((err, posts) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to get posts'});
+        } else {
+            res.json({success: true, posts});
         }
     })
 });

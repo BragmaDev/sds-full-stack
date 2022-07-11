@@ -14,6 +14,10 @@ const PostSchema = mongoose.Schema({
 
 const Post = module.exports = mongoose.model('Post', PostSchema);
 
+module.exports.getAllPosts = function(callback) {
+    Post.find({}, callback);
+}
+
 module.exports.getPostByPosterId = function(id, callback) {
     const query = {id};
     Post.findOne(query, callback);
