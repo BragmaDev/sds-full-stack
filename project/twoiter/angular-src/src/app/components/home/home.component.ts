@@ -12,18 +12,22 @@ export class HomeComponent implements OnInit {
 
   posts: Post[] = [];
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService) { 
+    this.postService.newPostCreated.subscribe(value => {
+      if (value) { this.getPosts(); }
+    });
+  }
 
   ngOnInit() {
     this.getPosts();
   }
 
   getPosts(): void {
-    this.postService.getPosts().subscribe(response => {
-      if (response.success) {
-        this.posts = response.posts;
+    this.postService.getPosts().subscribe(res => {
+      if (res.success) {
+        this.posts = res.posts;
       } else {
-        console.log(response.msg);
+        console.log(res.msg);
       }
     });
   }

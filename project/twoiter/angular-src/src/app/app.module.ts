@@ -18,6 +18,7 @@ import { PostService } from './services/post.service';
 import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { PostCreationComponent } from './components/post-creation/post-creation.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostCreationComponent
 
   ],
   imports: [

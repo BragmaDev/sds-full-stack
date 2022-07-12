@@ -9,7 +9,6 @@ router.post('/create', (req, res, next) => {
         posterId: req.body.posterId,
         content: req.body.content
     });
-
     Post.addPost(newPost, (err, post) => {
         if (err) {
             res.json({success: false, msg: 'Failed to create post'});
@@ -25,6 +24,9 @@ router.get('/get', (req, res, next) => {
         if (err) {
             res.json({success: false, msg: 'Failed to get posts'});
         } else {
+            posts.sort((a, b) => {
+                return b.createdAt - a.createdAt;
+            });
             res.json({success: true, posts});
         }
     })
