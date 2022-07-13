@@ -37,6 +37,14 @@ export class AuthService {
       .pipe(map((res: any) => res));
   }
 
+  getUsernameById(id: string) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get(`http://localhost:8080/users/username/${id}`, {headers})
+      .pipe(map((res: any) => res));
+  }
+
   storeUserData(token: any, user: any) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
