@@ -10,7 +10,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class PostCreationComponent implements OnInit {
   posterId: string;
-  content: string;
+  content: string = "";
 
   constructor(
     private postService: PostService,

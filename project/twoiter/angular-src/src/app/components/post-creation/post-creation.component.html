@@ -1,5 +1,9 @@
 <div class="post-creation-component">
-    <label for="new-post">Create a post:</label>
-    <input type="text" [(ngModel)]="content" name="content" class="form-control">
-    <button type="button" class="btn btn-primary" (click)="onPostSubmit()">Twoit</button>
+    <label for="">Write a post:</label>
+    <div class="input-group">
+        <input type="text" [(ngModel)]="content" name="content" class="form-control input-group-member" maxlength="140" autocomplete="off">
+        <span class="input-group-btn">
+            <button class="btn btn-primary input-group-member" type="button" (click)="onPostSubmit()" id="twoit-button">Twoit</button>
+        </span>
+    </div>     
 </div>
