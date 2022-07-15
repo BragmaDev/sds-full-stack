@@ -18,6 +18,15 @@ module.exports.getAllPosts = function(callback) {
     Post.find({}, callback);
 }
 
+module.exports.getPostsPaginated = function(pageNumber, pageSize, callback) {
+    const query = Post.find().sort('-createdAt').skip((pageNumber - 1) * pageSize).limit(pageSize);
+    query.exec(callback);
+}
+
+module.exports.getTotalPostsCount = function(callback) {
+    Post.countDocuments(callback);
+}
+
 module.exports.getPostByPosterId = function(id, callback) {
     const query = {id};
     Post.findOne(query, callback);

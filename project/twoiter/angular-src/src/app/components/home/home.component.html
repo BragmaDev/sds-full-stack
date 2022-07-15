@@ -16,5 +16,13 @@
         </div>
       </div>
     </li>
+  </ul>  
+  <ul class="pager">
+    <li [ngClass]="onOldestPage == true ? 'disabled' : ''" class="previous">
+      <a [ngClass]="onOldestPage == true ? 'disabled' : ''" (click)="changePage(true)" href="#">&larr; Older</a>
+    </li>
+    <li [ngClass]="pageNumber == 1 ? 'disabled' : ''" class="next">
+      <a [ngClass]="pageNumber == 1 ? 'disabled' : ''" (click)="changePage(false)" href="#">Newer &rarr;</a>
+    </li>
   </ul>
 </div>

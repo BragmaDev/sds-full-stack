@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
@@ -12,11 +12,22 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts() {
+  getPosts(pageNumber: number, pageSize: number) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
-    });  
-    return this.http.get('http://localhost:8080/posts/get', {headers})
+    });
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber)
+      .set('pageSize', pageSize); 
+    return this.http.get('http://localhost:8080/posts/get', {headers, params})
+      .pipe(map((res: any) => res));
+  }
+
+  getTotalPostsCount() {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get('http://localhost:8080/posts/getcount', {headers})
       .pipe(map((res: any) => res));
   }
 

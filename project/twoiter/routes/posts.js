@@ -20,16 +20,36 @@ router.post('/create', (req, res, next) => {
 
 // get posts
 router.get('/get', (req, res, next) => {
-    Post.getAllPosts((err, posts) => {
+    // all posts
+    if (req.query.pageNumber == undefined || req.query.pageSize == undefined) {
+        Post.getAllPosts((err, posts) => {
+            if (err) {
+                res.json({success: false, msg: 'Failed to get posts'});
+            } else {
+                res.json({success: true, posts});
+            }
+        });
+    } else {
+        // paginated
+        Post.getPostsPaginated(req.query.pageNumber, req.query.pageSize, (err, posts) => {
+            if (err) {
+                res.json({success: false, msg: 'Failed to get posts'});
+            } else {
+                res.json({success: true, posts});
+            }
+        });
+    }  
+});
+
+// get total posts count
+router.get('/getcount', (req, res, next) => {
+    Post.getTotalPostsCount((err, count) => {
         if (err) {
-            res.json({success: false, msg: 'Failed to get posts'});
+            res.json({success: false, msg: 'Failed to get posts count'});
         } else {
-            posts.sort((a, b) => {
-                return b.createdAt - a.createdAt;
-            });
-            res.json({success: true, posts});
+            res.json({success: true, count});
         }
-    })
+    });
 });
 
 module.exports = router;
