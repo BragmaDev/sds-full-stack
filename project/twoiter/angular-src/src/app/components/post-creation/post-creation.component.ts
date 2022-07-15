@@ -43,6 +43,7 @@ export class PostCreationComponent implements OnInit {
           if (res.success) {
             this.flashMessage.show(res.msg, {cssClass: 'alert-success', timeout: 3000});
             this.postService.newPostCreated.next(true);
+            this.content = '';
           } else {
             this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 3000});
           }
