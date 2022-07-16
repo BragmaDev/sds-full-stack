@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  public newPostCreated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public postsUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getPosts(pageNumber: number, pageSize: number) {
     let headers = new HttpHeaders({
@@ -36,6 +37,15 @@ export class PostService {
       'Content-Type': 'application/json'
     });  
     return this.http.post('http://localhost:8080/posts/create', post, {headers})
+      .pipe(map((res: any) => res));
+  }
+
+  deletePost(id: string) {
+    let headers = new HttpHeaders({
+      'Authorization': this.authService.authToken,
+      'Content-Type': 'application/json'
+    });
+    return this.http.delete(`http://localhost:8080/posts/delete/${id}`, {headers})
       .pipe(map((res: any) => res));
   }
 }

@@ -1,6 +1,5 @@
-import { Timestamp } from "rxjs";
-
 export interface Post {
+    _id: string,
     posterId: string,
     content: string,
     createdAt: number,

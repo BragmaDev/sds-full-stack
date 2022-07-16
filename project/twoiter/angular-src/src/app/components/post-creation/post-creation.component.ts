@@ -19,14 +19,9 @@ export class PostCreationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe({
-      next: (profile) => {
-        this.posterId = profile.user._id;
-      },
-      error: (err) => { 
-        console.log(err); 
-        return false; }     
-    });
+    if (this.authService.loggedIn()) {
+      this.posterId = this.authService.getCurrentUserId();
+    }
   }
 
   onPostSubmit(): void {
@@ -42,7 +37,7 @@ export class PostCreationComponent implements OnInit {
         this.postService.createPost(post).subscribe(res => {
           if (res.success) {
             this.flashMessage.show(res.msg, {cssClass: 'alert-success', timeout: 3000});
-            this.postService.newPostCreated.next(true);
+            this.postService.postsUpdated.next(true);
             this.content = '';
           } else {
             this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 3000});

@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const router = express.Router();
 const Post = require('../models/post');
+
 
 // create post
 router.post('/create', (req, res, next) => {
@@ -50,6 +52,29 @@ router.get('/getcount', (req, res, next) => {
             res.json({success: true, count});
         }
     });
+});
+
+// delete post, requires that user is logged in and is the poster
+router.delete('/delete/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    let foundPost;
+    Post.findById(req.params.id, (err, post) => {
+        if (err) {
+            res.json({succcess: false, msg: 'Could not find post'});
+        } else {
+            foundPost = post;
+            if (req.user._id == foundPost.posterId) {
+                post.remove((err) => {
+                    if (err) {
+                        res.json({success: false, msg: 'Failed to delete post'});
+                    } else {
+                        res.json({success: true, msg: 'Post deleted'});
+                    }
+                });
+            } else {
+                res.json({success: false, msg: 'You can only delete your own posts'});
+            }
+        }        
+    });   
 });
 
 module.exports = router;

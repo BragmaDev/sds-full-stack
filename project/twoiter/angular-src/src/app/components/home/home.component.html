@@ -22,10 +22,15 @@
   <ul class="posts" style="list-style: none;">
     <li *ngFor="let post of posts">
       <div class="panel panel-default">
-        <div class="panel-heading"><b>{{post.poster}}</b> - {{post.formattedTimestamp}}</div>
+        <div class="panel-heading"><b>{{post.poster}}</b> - {{post.formattedTimestamp}} 
+          <div *ngIf="checkIfUserPosted(post.posterId)" class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" (click)="deletePost(post._id)">Delete</button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
         <div class="panel-body">
           {{post.content}}
-        </div>
+        </div>     
       </div>
     </li>
   </ul>  

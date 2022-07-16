@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/interfaces/post';
 import { PostService } from 'src/app/services/post.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,12 @@ export class HomeComponent implements OnInit {
   pageCount: number;
   onOldestPage: boolean;
 
-  constructor(private postService: PostService, private authService: AuthService) { 
-    this.postService.newPostCreated.subscribe(value => {
+  constructor(
+    private postService: PostService, 
+    private authService: AuthService,
+    private flashMessage: FlashMessagesService
+  ) { 
+    this.postService.postsUpdated.subscribe(value => {
       if (value) { this.getPosts(); }
     });
   }
@@ -87,5 +92,20 @@ export class HomeComponent implements OnInit {
   // check if the current page is the oldest
   checkOnOldestPage(): void {
     this.pageNumber >= this.pageCount ? this.onOldestPage = true : this.onOldestPage = false;
+  }
+
+  checkIfUserPosted(posterId: string): boolean {
+    return this.authService.getCurrentUserId() == posterId;  
+  }
+
+  deletePost(postId: string): void {
+    this.postService.deletePost(postId).subscribe(res => {
+      if (res.success) {
+        this.flashMessage.show(res.msg, {cssClass: 'alert-success', timeout: 3000});
+        this.postService.postsUpdated.next(true);
+      } else {
+        this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
   }
 }

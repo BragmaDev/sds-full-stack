@@ -37,6 +37,15 @@ export class AuthService {
       .pipe(map((res: any) => res));
   }
 
+  getCurrentUserId(): string {
+    const user = localStorage.getItem('user');
+    if (user) {
+      return JSON.parse(user).id;
+    } else {
+      return '';
+    }   
+  }
+
   getUsernameById(id: string) {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
