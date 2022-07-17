@@ -1,5 +1,5 @@
 # sds-full-stack
-Repository for a university course
+Repository for a university course. Student name: Matti Bragge
 
 # Project details
 The final version of the course project is hosted here: https://salty-island-58568.herokuapp.com/ <br>
