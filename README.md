@@ -2,7 +2,7 @@
 Repository for a university course
 
 # Project details
-The final version of the course project is hosted here: https://salty-island-58568.herokuapp.com/
+The final version of the course project is hosted here: https://salty-island-58568.herokuapp.com/ <br>
 Video of the project: https://1drv.ms/v/s!Au8VkSHdBwtTgoBUJRFSFjQ5WGByHA
 
 The project, Twoiter, is a very simple version of Twitter. It's made using the MEAN stack.
