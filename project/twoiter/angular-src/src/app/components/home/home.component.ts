@@ -23,7 +23,10 @@ export class HomeComponent implements OnInit {
     private flashMessage: FlashMessagesService
   ) { 
     this.postService.postsUpdated.subscribe(value => {
-      if (value) { this.getPosts(); }
+      if (value) { 
+        this.getPosts();
+        this.getPageCount();
+       }
     });
   }
 
@@ -102,6 +105,7 @@ export class HomeComponent implements OnInit {
     this.postService.deletePost(postId).subscribe(res => {
       if (res.success) {
         this.flashMessage.show(res.msg, {cssClass: 'alert-success', timeout: 3000});
+        this.getPageCount();
         this.postService.postsUpdated.next(true);
       } else {
         this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 3000});
